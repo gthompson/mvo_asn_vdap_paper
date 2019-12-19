@@ -1,0 +1,21 @@
+#!C:\Perl\bin\perl.exe
+chdir("e:\\DMX_PHA\\");
+@alldirs=glob("????");
+foreach $YYYY (@alldirs) {
+	chdir("e:\\DMX_PHA\\$YYYY");
+	print "\n\nDirectory now e:\\DMX_PHA\\$YYYY\n";
+	@alldmxfiles=glob("*.DMX");
+	foreach $dmxfile (@alldmxfiles) {
+		$MM=substr($dmxfile,2,2);
+		print "Processing $dmxfile\n";
+		system("e:\\sudsei.exe $dmxfile");
+                if (!(-e "e:\\SEISAN\\WAV\\IRIG_\\$YYYY")) {
+			mkdir("e:\\SEISAN\\WAV\\IRIG_\\$YYYY",777);
+		}
+                if (!(-e "e:\\SEISAN\\WAV\\IRIG_\\$YYYY\\$MM")) {
+			mkdir("e:\\SEISAN\\WAV\\IRIG_\\$YYYY\\$MM",777);
+		}
+                print "\n\nMoving *.IRIG* to e:\\SEISAN\\WAV\\IRIG_\\$YYYY\\$MM\n\n";
+                system("move *.IRIG* e:\\SEISAN\\WAV\\IRIG_\\$YYYY\\$MM");
+	}	
+}

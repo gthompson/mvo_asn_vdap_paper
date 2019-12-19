@@ -1,0 +1,14 @@
+#!C:\Perl\bin\perl.exe
+chdir("d:\\WVM\\");
+@alldirs=glob("2???-??-??");
+foreach $dir (@alldirs) {
+	chdir("d:\\WVM\\$dir");
+	print "\n\nDirectory now d:\\WVM\\$dir\n";
+	@allwvmfiles=glob("*.WVM");
+	foreach $wvmfile (@allwvmfiles) {
+		print "Processing $wvmfile\n";
+                system("d:\\PROGRAMS\\SUDS\\demux.exe $wvmfile");
+	}
+	$YYYY=substr($dir,0,4);
+	system("move *.DMX d:\\DMX_PHA\\$YYYY");
+}
